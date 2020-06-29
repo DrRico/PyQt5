@@ -1,43 +1,52 @@
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QFileDialog
+import sys
+from PyQt5.QtWidgets import (QWidget, QProgressBar,
+                             QPushButton, QApplication)
+from PyQt5.QtCore import QBasicTimer
 
 
-class MyWindow(QtWidgets.QWidget):
+class Example(QWidget):
     def __init__(self):
-        super(MyWindow, self).__init__()
-        self.myButton = QtWidgets.QPushButton(self)
-        self.myButton.setObjectName("myButton")
-        self.myButton.setText("Test")
-        self.myButton.clicked.connect(self.msg)
+        super().__init__()
 
-    def msg(self):
-        directory1 = QFileDialog.getExistingDirectory(self,
-                                                      "选取文件夹",
-                                                      "./")  # 起始路径
-        print(directory1)
+        self.initUI()
 
-        fileName1, filetype = QFileDialog.getOpenFileName(self,
-                                                          "选取文件",
-                                                          "./",
-                                                          "All Files (*);;Text Files (*.txt)")  # 设置文件扩展名过滤,注意用双分号间隔
-        print(fileName1, filetype)
+    def initUI(self):
 
-        files, ok1 = QFileDialog.getOpenFileNames(self,
-                                                  "多文件选择",
-                                                  "./",
-                                                  "All Files (*);;Text Files (*.txt)")
-        print(files, ok1)
+        self.pbar = QProgressBar(self)
+        self.pbar.setGeometry(30, 40, 200, 25)
 
-        fileName2, ok2 = QFileDialog.getSaveFileName(self,
-                                                     "文件保存",
-                                                     "./",
-                                                     "All Files (*);;Text Files (*.txt)")
+        self.btn = QPushButton('Start', self)
+        self.btn.move(40, 80)
+        self.btn.clicked.connect(self.doAction)
+
+        self.timer = QBasicTimer()
+        self.step = 0
+
+        self.setGeometry(300, 300, 280, 170)
+        self.setWindowTitle('QProgressBar')
+        self.show()
+
+    def timerEvent(self, e):
+
+        if self.step >= 100:
+            self.timer.stop()
+            self.btn.setText('Finished')
+            return
+
+        self.step = self.step + 1
+        self.pbar.setValue(self.step)
+
+    def doAction(self):
+
+        if self.timer.isActive():
+            self.timer.stop()
+            self.btn.setText('Start')
+        else:
+            self.timer.start(100, self)
+            self.btn.setText('Stop')
 
 
-if __name__ == "__main__":
-    import sys
-
-    app = QtWidgets.QApplication(sys.argv)
-    myshow = MyWindow()
-    myshow.show()
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = Example()
     sys.exit(app.exec_())

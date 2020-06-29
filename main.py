@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 # author: DrRico time:2020/6/29
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog,QMessageBox
 from PyQt5.QtGui import *
-from position import Ui_Form
+from position_btn import Ui_Form
 
 
 class DetailUI(Ui_Form,QMainWindow):
@@ -13,7 +13,7 @@ class DetailUI(Ui_Form,QMainWindow):
         self.setWindowTitle('室内定位系统')
         self.sig_img_btn.clicked.connect(self.openImage)
         self.mul_img_btn.clicked.connect(self.openFolder)
-
+        self.exit_btn.clicked.connect(self.close)
 
 
     def openImage(self):
@@ -32,15 +32,22 @@ class DetailUI(Ui_Form,QMainWindow):
     def openFolder(self):
         try:
             path = QFileDialog.getExistingDirectory(self,"选取文件夹","./")  # 起始路径
-            self.test_img_show.setText(path)
+            self.test_img_show.setText("你选择了\n"+path+"内所有的图像")
             self.test_img_show.setWordWrap(True)
         except:
             pass
 
+    def closeEvent(self, event):
+        reply = QMessageBox.question(self, '警告', '退出后系统将停止,\n你确认要退出吗？',QMessageBox.Yes, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
 
 
     def runModel(self):
         pass
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     ex = DetailUI()

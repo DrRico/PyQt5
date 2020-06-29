@@ -1,12 +1,4 @@
 # -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'position_sys.ui'
-#
-# Created by: PyQt5 UI code generator 5.14.1
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QColor
 
@@ -56,6 +48,7 @@ class Ui_Form(object):
         col = QColor(255, 255, 255)
         self.test_img_show.setStyleSheet("QWidget { background-color: %s }"
                                % col.name())
+
         self.test_img_show.setObjectName("test_img_show")
         self.mul_img_btn = QtWidgets.QPushButton(Form)
         self.mul_img_btn.setGeometry(QtCore.QRect(90, 120, 120, 25))
