@@ -1,46 +1,43 @@
-import sys
-from PyQt5.QtWidgets import (QMainWindow, QTextEdit,
-                             QAction, QFileDialog, QApplication)
-from PyQt5.QtGui import QIcon
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QFileDialog
 
 
-class Example(QMainWindow):
-
+class MyWindow(QtWidgets.QWidget):
     def __init__(self):
-        super().__init__()
+        super(MyWindow, self).__init__()
+        self.myButton = QtWidgets.QPushButton(self)
+        self.myButton.setObjectName("myButton")
+        self.myButton.setText("Test")
+        self.myButton.clicked.connect(self.msg)
 
-        self.initUI()
+    def msg(self):
+        directory1 = QFileDialog.getExistingDirectory(self,
+                                                      "选取文件夹",
+                                                      "./")  # 起始路径
+        print(directory1)
 
-    def initUI(self):
-        self.textEdit = QTextEdit()
-        self.setCentralWidget(self.textEdit)
-        self.statusBar()
+        fileName1, filetype = QFileDialog.getOpenFileName(self,
+                                                          "选取文件",
+                                                          "./",
+                                                          "All Files (*);;Text Files (*.txt)")  # 设置文件扩展名过滤,注意用双分号间隔
+        print(fileName1, filetype)
 
-        openFile = QAction(QIcon('open.png'), 'Open', self)
-        openFile.setShortcut('Ctrl+O')
-        openFile.setStatusTip('Open new File')
-        openFile.triggered.connect(self.showDialog)
+        files, ok1 = QFileDialog.getOpenFileNames(self,
+                                                  "多文件选择",
+                                                  "./",
+                                                  "All Files (*);;Text Files (*.txt)")
+        print(files, ok1)
 
-        menubar = self.menuBar()
-        fileMenu = menubar.addMenu('&File')
-        fileMenu.addAction(openFile)
-
-        self.setGeometry(300, 300, 350, 300)
-        self.setWindowTitle('File dialog')
-        self.show()
-
-    def showDialog(self):
-        fname = QFileDialog.getOpenFileName(self, 'Open file', '/home')
-
-        if fname[0]:
-            f = open(fname[0], 'r')
-
-            with f:
-                data = f.read()
-                self.textEdit.setText(data)
+        fileName2, ok2 = QFileDialog.getSaveFileName(self,
+                                                     "文件保存",
+                                                     "./",
+                                                     "All Files (*);;Text Files (*.txt)")
 
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = Example()
+if __name__ == "__main__":
+    import sys
+
+    app = QtWidgets.QApplication(sys.argv)
+    myshow = MyWindow()
+    myshow.show()
     sys.exit(app.exec_())

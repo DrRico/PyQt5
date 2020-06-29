@@ -1,6 +1,5 @@
-#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# author: feifan time:2019/5/21
+# author: DrRico time:2020/6/29
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog
 from PyQt5.QtGui import *
@@ -13,6 +12,8 @@ class DetailUI(Ui_Form,QMainWindow):
         self.setupUi(self)
         self.setWindowTitle('室内定位系统')
         self.sig_img_btn.clicked.connect(self.openImage)
+        self.mul_img_btn.clicked.connect(self.openFolder)
+
 
 
     def openImage(self):
@@ -27,6 +28,16 @@ class DetailUI(Ui_Form,QMainWindow):
         except:
             print('打开文件失败，可能是文件内型错误')
             self.test_img_show.setText("打开文件失败，可能是文件内型错误")
+
+    def openFolder(self):
+        try:
+            path = QFileDialog.getExistingDirectory(self,"选取文件夹","./")  # 起始路径
+            self.test_img_show.setText(path)
+            self.test_img_show.setWordWrap(True)
+        except:
+            pass
+
+
 
     def runModel(self):
         pass
