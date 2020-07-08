@@ -30,7 +30,8 @@ class DetailUI(Ui_Form,QMainWindow):
             self.test_img_show.setText("你选择了\n"+path+"内所有的图像")
             self.test_img_show.setWordWrap(True)
         except:
-            pass
+            self.test_img_show.setText("无法打开文件夹")
+            # pass
 
     def closeEvent(self, event):
         reply = QMessageBox.question(self, '警告', '退出后系统将停止,\n你确认要退出吗？',QMessageBox.Yes, QMessageBox.No)
