@@ -2,7 +2,7 @@ import sys, random
 from PyQt5.QtWidgets import QMainWindow, QFrame, QDesktopWidget, QApplication
 from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal
 from PyQt5.QtGui import QPainter, QColor
-
+## 小游戏：俄罗斯方块
 
 class Tetris(QMainWindow):
     def __init__(self):
@@ -415,7 +415,7 @@ class Shape(object):
 
         return result
 
-
+## 小游戏：俄罗斯方块
 if __name__ == '__main__':
     app = QApplication([])
     tetris = Tetris()

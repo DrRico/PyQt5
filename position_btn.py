@@ -19,7 +19,7 @@ class Ui_Form(object):
         self.result_img_show.setPixmap(QtGui.QPixmap("newestMap.png"))
         self.result_img_show.setObjectName("result_img_show")
         self.label_angle = QtWidgets.QLabel(Form)
-        self.label_angle.setGeometry(QtCore.QRect(620, 150, 51, 16))
+        self.label_angle.setGeometry(QtCore.QRect(630, 150, 51, 16))
         self.label_angle.setObjectName("label_angle")
         self.label_x = QtWidgets.QLabel(Form)
         self.label_x.setGeometry(QtCore.QRect(630, 30, 41, 16))
@@ -46,6 +46,7 @@ class Ui_Form(object):
         self.test_img_show = QtWidgets.QLabel(Form)
         self.test_img_show.setGeometry(QtCore.QRect(260, 10, 161, 191))
         self.test_img_show.setObjectName("test_img_show")
+
         # 设置颜色等信息
         col = QColor(255, 255, 255)
         self.test_img_show.setStyleSheet("QWidget { background-color: %s }"
@@ -78,7 +79,7 @@ class Ui_Form(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.sig_img_btn.setText(_translate("Form", "选择单个图像"))
-        self.label_angle.setText(_translate("Form", "方位角"))
+        self.label_angle.setText(_translate("Form", "方位"))
         self.label_x.setText(_translate("Form", "经度"))
         self.label_y.setText(_translate("Form", "维度"))
         self.mul_img_btn.setText(_translate("Form", "选择文件夹"))
